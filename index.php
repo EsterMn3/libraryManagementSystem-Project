@@ -10,6 +10,7 @@ if($_SESSION['type'] != 1 && in_array($page,array('maintenance','products','stoc
     header("Location:./");
     exit;
 }
+//here I am adding some comment
 ?>
 <!DOCTYPE html>
 <html lang="en">
