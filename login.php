@@ -25,7 +25,7 @@ $page = isset($_GET['page']) ? $_GET['page'] : 'home';
             height:100%;
         }
         body{
-            background-image:url('./images/backG.jpg') !important;
+            /* background-image:url('./images/backG.jpg') !important; */
             background-size:cover;
             background-repeat:no-repeat;
             background-position:center center;
