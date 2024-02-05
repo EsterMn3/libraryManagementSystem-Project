@@ -2,9 +2,6 @@
 <div class="card d-flex flex-column rounded-0 shadow">
     <div class="card-header d-flex justify-content-between">
         <h3 class="card-title">Categories</h3>
-        <div class="card-tools align-middle">
-            <!-- <button class="btn btn-dark btn-sm py-1 rounded-0" type="button" id="create_new">Add New</button> -->
-        </div>
     </div>
     <div class="card-body flex-grow-1">
         <div class="col-12 h-100">
@@ -13,12 +10,12 @@
                     <div class="w-100 d-flex border-bottom border-dark py-1 mb-1">
                         <div class="fs-5 col-auto flex-grow-1"><b>Category List</b></div>
                         <div class="col-auto flex-grow-0 d-flex justify-content-end">
-                            <a href="javascript:void(0)" id="new_category" class="btn btn-dark btn-sm bg-gradient rounded-2" title="Add Category"><span class="fa fa-plus"></span></a>
+                            <a href="javascript:void(0)" id="new_category" class="btn btn-dark btn-sm bg-gradient rounded-2" title="Add Category">Add Category<span class="fa fa-plus"></span></a>
                         </div>
                     </div>
                     <div class="h-100 overflow-auto border rounded-1 border-dark">
                         <ul class="list-group">
-                            <?php 
+                            <?php
                             $cat_qry = $conn->query("SELECT * FROM `category_list` where delete_flag = 0 order by `name` asc");
                             while($row = $cat_qry->fetch_assoc()):
                             ?>
@@ -27,7 +24,7 @@
                                     <?php echo $row['name'] ?>
                                 </div>
                                 <div class="col-auto pe-2">
-                                    <?php 
+                                    <?php
                                         if(isset($row['status']) && $row['status'] == 1){
                                             echo "<small><span class='badge rounded-pill bg-success'>Active</span></small>";
                                         }else{
@@ -36,9 +33,9 @@
                                     ?>
                                 </div>
                                 <div class="col-auto d-flex justify-content-end">
-                                    <a href="javascript:void(0)" class="view_category btn btn-sm btn-info text-light bg-gradient py-0 px-1 me-1" title="View Category Details" data-id="<?php echo $row['category_id'] ?>" ><span class="fa fa-th-list"></span></a>
-                                    <a href="javascript:void(0)" class="edit_category btn btn-sm btn-primary bg-gradient py-0 px-1 me-1" title="Edit Category Details" data-id="<?php echo $row['category_id'] ?>"  data-name="<?php echo $row['name'] ?>"><span class="fa fa-edit"></span></a>
-                                    <a href="javascript:void(0)" class="delete_category btn btn-sm btn-danger bg-gradient py-0 px-1" title="Delete Category" data-id="<?php echo $row['category_id'] ?>"  data-name="<?php echo $row['name'] ?>"><span class="fa fa-trash"></span></a>
+                                    <a href="javascript:void(0)" class="view_category btn btn-sm btn-info text-light bg-gradient py-0 px-1 me-1" title="View Category Details" data-id="<?php echo $row['category_id'] ?>" >View Details<span class="fa fa-th-list"></span></a>
+                                    <a href="javascript:void(0)" class="edit_category btn btn-sm btn-primary bg-gradient py-0 px-1 me-1" title="Edit Category Details" data-id="<?php echo $row['category_id'] ?>"  data-name="<?php echo $row['name'] ?>">Edit<span class="fa fa-edit"></span></a>
+                                    <a href="javascript:void(0)" class="delete_category btn btn-sm btn-danger bg-gradient py-0 px-1" title="Delete Category" data-id="<?php echo $row['category_id'] ?>"  data-name="<?php echo $row['name'] ?>">Delete<span class="fa fa-trash"></span></a>
                                 </div>
                             </li>
                             <?php endwhile; ?>

@@ -18,14 +18,14 @@ $qry = $conn->query("SELECT * FROM `product_list` where product_id = '{$_GET['id
                         <input type="text" name="product_code" autofocus id="product_code" required class="form-control form-control-sm rounded-0" value="<?php echo isset($product_code) ? $product_code : '' ?>">
                     </div>
                     <div class="form-group">
-                        <label for="category_id" class="control-label">Category</label>
-                        <select name="category_id" id="category_id" class="form-select form-select-sm rounded-0 select2" required>
-                            <option <?php echo (!isset($category_id)) ? 'selected' : '' ?> disabled>Please Select Here</option>
-                            <?php
-                            $cat_qry = $conn->query("SELECT * FROM category_list where `status` = 1 and `delete_flag` = 0  order by `name` asc");
-                            while($row= $cat_qry->fetch_assoc()):
-                            ?>
-                                <option value="<?php echo $row['category_id'] ?>" <?php echo (isset($category_id) && $category_id == $row['category_id'] ) ? 'selected' : '' ?>><?php echo $row['name'] ?></option>
+                        <label for="category_id" class="control-label">Categories</label>
+                          <?php
+                            $selectedCategories = isset($category_id) ? explode(',', $category_id) : [];
+                            $cat_qry = $conn->query("SELECT * FROM category_list WHERE `status` = 1 AND `delete_flag` = 0 ORDER BY `name` ASC");
+                          ?>
+                        <select name="categories[]" id="category_id" class="form-control form-control-sm rounded-0 select2" multiple="multiple" required>
+                            <?php while($row = $cat_qry->fetch_assoc()): ?>
+                                <option value="<?php echo $row['category_id']; ?>" <?php echo in_array($row['category_id'], $selectedCategories) ? 'selected' : ''; ?>><?php echo $row['name']; ?></option>
                             <?php endwhile; ?>
                         </select>
                     </div>

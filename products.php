@@ -30,25 +30,31 @@
             </thead>
             <tbody>
 
-                <?php 
-                $sql = "SELECT p.*,c.name as cname FROM `product_list` p inner join `category_list` c on p.category_id = c.category_id where p.delete_flag = 0 order by `name` asc";
+                <?php
+                $sql = "SELECT p.*, GROUP_CONCAT(c.name) as categories
+                        FROM `product_list` p
+                        LEFT JOIN `product_category` pc ON p.product_id = pc.product_id
+                        LEFT JOIN `category_list` c ON pc.category_id = c.category_id
+                        WHERE p.delete_flag = 0
+                        GROUP BY p.product_id
+                        ORDER BY p.name ASC";
                 $qry = $conn->query($sql);
                 $i = 1;
                     while($row = $qry->fetch_assoc()):
                 ?>
                 <tr>
 
-                    <td class="text-center p-0"><?php echo $i++; ?></td>
-                    <td class="py-0 px-1"><?php echo $row['product_code'] ?></td>
-                    <td class="py-0 px-1"><?php echo $row['cname'] ?></td>
-                    <td class="py-0 px-1">
+                     <td class="text-center p-0"><?php echo $i++; ?></td>
+                     <td class="py-0 px-1"><?php echo $row['product_code'] ?></td>
+                     <td class="py-0 px-1"><?php echo $row['categories'] ?></td>
+                     <td class="py-0 px-1">
                         <div class="fs-6 fw-bold truncate-1" title="<?php echo $row['name'] ?>"><?php echo $row['name'] ?></div>
                         <div class="fs-6 fw-light truncate-3" title="<?php echo $row['description'] ?>"><?php echo $row['description'] ?></div>
                     </td>
                     <td class="py-0 px-1 text-end"><?php echo number_format($row['price']) ?></td>
                     <td class="py-0 px-1 text-center">
 
-                        <?php 
+                        <?php
                         if($row['status'] == 1){
                             echo  '<span class="py-1 px-3 badge rounded-pill bg-success"><small>Active</small></span>';
                         }else{
@@ -71,7 +77,7 @@
                     </td>
                 </tr>
                 <?php endwhile; ?>
-               
+
             </tbody>
         </table>
     </div>
