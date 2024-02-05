@@ -19,10 +19,10 @@
             </colgroup>
             <thead>
                 <tr>
-                    <th class="text-center p-0">#</th>
-                    <th class="text-center p-0">Code</th>
-                    <th class="text-center p-0">Category</th>
-                    <th class="text-center p-0">Product</th>
+                    <th class="text-center p-0">ID</th>
+                    <th class="text-center p-0">ISBN</th>
+                    <th class="text-center p-0">Genre</th>
+                    <th class="text-center p-0">Book</th>
                     <th class="text-center p-0">Price</th>
                     <th class="text-center p-0">Status</th>
                     <th class="text-center p-0">Action</th>

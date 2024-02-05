@@ -13,7 +13,7 @@
                                         <span class="fa fa-th-list fs-3 text-primary"></span>
                                     </div>
                                     <div class="col-auto flex-grow-1">
-                                        <div class="fs-5"><b>Categories</b></div>
+                                        <div class="fs-5"><b>Categor</b></div>
                                         <div class="fs-6 text-end fw-bold">
                                             <?php
                                             $category = $conn->query("SELECT count(category_id) as `count` FROM `category_list` where delete_flag = 0 ")->fetch_array()['count'];

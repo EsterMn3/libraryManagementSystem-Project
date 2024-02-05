@@ -18,7 +18,7 @@ if($_SESSION['type'] != 1 && in_array($page,array('maintenance','products','stoc
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><?php echo ucwords(str_replace('_','',$page)) ?> | Shop Management System</title>
+    <title><?php echo ucwords(str_replace('_','',$page)) ?> | Library Management System</title>
     <link rel="stylesheet" href="./Font-Awesome-master/css/all.min.css">
     <link rel="stylesheet" href="./css/bootstrap.min.css">
     <link rel="stylesheet" href="./select2/css/select2.min.css">
@@ -53,11 +53,11 @@ if($_SESSION['type'] != 1 && in_array($page,array('maintenance','products','stoc
             flex-flow:column;
         }
         #page-container{
-            flex: 1 1 auto; 
+            flex: 1 1 auto;
             overflow:auto;
         }
         #topNavBar{
-            flex: 0 1 auto; 
+            flex: 0 1 auto;
         }
         .thumbnail-img{
             width:50px;
@@ -87,7 +87,7 @@ if($_SESSION['type'] != 1 && in_array($page,array('maintenance','products','stoc
             max-width: unset;
         }
         @media (max-width:720px){
-            
+
             .modal-dialog.large {
                 width: 100% !important;
                 max-width: unset;
@@ -95,8 +95,8 @@ if($_SESSION['type'] != 1 && in_array($page,array('maintenance','products','stoc
             .modal-dialog.mid-large {
                 width: 100% !important;
                 max-width: unset;
-            }  
-        
+            }
+
         }
         .display-select-image{
             width:60px;
@@ -116,17 +116,17 @@ if($_SESSION['type'] != 1 && in_array($page,array('maintenance','products','stoc
 
         /* Track */
         ::-webkit-scrollbar-track {
-        background: #f1f1f1; 
+        background: #f1f1f1;
         }
-        
+
         /* Handle */
         ::-webkit-scrollbar-thumb {
-        background: #888; 
+        background: #888;
         }
 
         /* Handle on hover */
         ::-webkit-scrollbar-thumb:hover {
-        background: #555; 
+        background: #555;
         }
         .img-del-btn{
             right: 2px;
@@ -143,7 +143,7 @@ if($_SESSION['type'] != 1 && in_array($page,array('maintenance','products','stoc
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark bg-gradient" id="topNavBar">
         <div class="container">
             <a class="navbar-brand" href="./">
-            Shop Management System
+            Library Management System
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -167,7 +167,7 @@ if($_SESSION['type'] != 1 && in_array($page,array('maintenance','products','stoc
                         <a class="nav-link" href="./?page=maintenance">Categories</a>
                     </li>
                     <?php endif; ?>
-                    
+
                 </ul>
             </div>
             <div>
@@ -184,7 +184,7 @@ if($_SESSION['type'] != 1 && in_array($page,array('maintenance','products','stoc
         </div>
     </nav>
     <div class="container py-3" id="page-container">
-        <?php 
+        <?php
             if(isset($_SESSION['flashdata'])):
         ?>
         <div class="dynamic_alert alert alert-<?php echo $_SESSION['flashdata']['type'] ?> rounded-0 shadow">
