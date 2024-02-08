@@ -1,4 +1,4 @@
-<?php 
+<?php
 session_start();
 require_once('DBConnection.php');
 
@@ -31,54 +31,68 @@ Class Actions extends DBConnection{
         header("location:./");
     }
     function save_user(){
-        extract($_POST);
-        $data = "";
-        foreach($_POST as $k => $v){
+    extract($_POST);
+
+    // Password validation criteria
+    $password_pattern = '/^(?=.*[A-Z])(?=.*[0-9!@#$%^&*]).{8,}$/';
+
+    // Check if the password matches the required pattern
+    if(!preg_match($password_pattern, $password)){
+        $resp['status'] = 'failed';
+        $resp['msg'] = 'Password must contain at least 8 characters, including at least one uppercase letter and one number or symbol.';
+        return json_encode($resp);
+    }
+
+    $data = "";
+    foreach($_POST as $k => $v){
         if(!in_array($k,array('id'))){
             if(!empty($id)){
                 if(!empty($data)) $data .= ",";
                 $data .= " `{$k}` = '{$v}' ";
-                }else{
+            } else {
+                // Exclude 'password' from being added to the columns and values arrays
+                if($k !== 'password') {
                     $cols[] = $k;
                     $values[] = "'{$v}'";
                 }
             }
         }
-        if(empty($id)){
-            $cols[] = 'password';
-            $values[] = "'".md5($username)."'";
-        }
-        if(isset($cols) && isset($values)){
-            $data = "(".implode(',',$cols).") VALUES (".implode(',',$values).")";
-        }
-        
-
-       
-        @$check= $this->db->query("SELECT count(user_id) as `count` FROM user_list where `username` = '{$username}' ".($id > 0 ? " and user_id != '{$id}' " : ""))->fetch_array()['count'];
-        if(@$check> 0){
-            $resp['status'] = 'failed';
-            $resp['msg'] = "Username already exists.";
-        }else{
-            if(empty($id)){
-                $sql = "INSERT INTO `user_list` {$data}";
-            }else{
-                $sql = "UPDATE `user_list` set {$data} where user_id = '{$id}'";
-            }
-            @$save = $this->db->query($sql);
-            if($save){
-                $resp['status'] = 'success';
-                if(empty($id))
-                $resp['msg'] = 'New User successfully saved.';
-                else
-                $resp['msg'] = 'User Details successfully updated.';
-            }else{
-                $resp['status'] = 'failed';
-                $resp['msg'] = 'Saving User Details Failed. Error: '.$this->db->error;
-                $resp['sql'] =$sql;
-            }
-        }
-        return json_encode($resp);
     }
+    if(empty($id)){
+        // Only add 'password' to columns and values arrays if it's empty
+        $cols[] = 'password';
+        $values[] = "'".md5($password)."'";
+    }
+    if(isset($cols) && isset($values)){
+        $data = "(".implode(',',$cols).") VALUES (".implode(',',$values).")";
+    }
+
+    @$check= $this->db->query("SELECT count(user_id) as `count` FROM user_list where `username` = '{$username}' ".($id > 0 ? " and user_id != '{$id}' " : ""))->fetch_array()['count'];
+    if(@$check> 0){
+        $resp['status'] = 'failed';
+        $resp['msg'] = "Username already exists.";
+    }else{
+        if(empty($id)){
+            $sql = "INSERT INTO `user_list` {$data}";
+        }else{
+            $sql = "UPDATE `user_list` set {$data} where user_id = '{$id}'";
+        }
+        @$save = $this->db->query($sql);
+        if($save){
+            $resp['status'] = 'success';
+            if(empty($id))
+                $resp['msg'] = 'New User successfully saved.';
+            else
+                $resp['msg'] = 'User Details successfully updated.';
+        }else{
+            $resp['status'] = 'failed';
+            $resp['msg'] = 'Saving User Details Failed. Error: '.$this->db->error;
+            $resp['sql'] =$sql;
+        }
+    }
+    return json_encode($resp);
+}
+
     function delete_user(){
         extract($_POST);
 

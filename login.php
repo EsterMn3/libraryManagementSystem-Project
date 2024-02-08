@@ -29,6 +29,8 @@ $page = isset($_GET['page']) ? $_GET['page'] : 'home';
             background-size:cover;
             background-repeat:no-repeat;
             background-position:center center;
+            color: white;
+
         }
         h1#sys_title {
             font-size: 6em;
@@ -56,6 +58,8 @@ $page = isset($_GET['page']) ? $_GET['page'] : 'home';
                         <button class="btn btn-lg btn-primary rounded-0 my-1">Login</button>
                     </div>
                 </form>
+                <p>Not registered? <a href="register.php" style="color:#3498db; ">Register</a></p>
+
       </div>
     </div>
 

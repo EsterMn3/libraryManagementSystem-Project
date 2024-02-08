@@ -19,6 +19,13 @@ $qry = $conn->query("SELECT * FROM `user_list` where user_id = '{$_GET['id']}'")
             <input type="text" name="username" id="username" required class="form-control form-control-sm rounded-0" value="<?php echo isset($username) ? $username : '' ?>">
         </div>
         <div class="form-group">
+            <label for="password" class="control-label">Password</label>
+            <div class="input-group">
+                <input type="password" style="font-family: 'Poppins', sans-serif; font-size: 16px;" name="password" id="new_password" class="form-control form-control-sm rounded-0" placeholder="Password">
+                    <button class="btn btn-outline-secondary toggle-password" type="button">Show</button>
+            </div>
+        </div>
+        <div class="form-group">
             <label for="type" class="control-label">Type</label>
             <select name="type" id="type" class="form-select form-select-sm rounded-0" required>
                 <option value="1" <?php echo isset($type) && $type == 1 ? 'selected' : '' ?>>Administrator</option>
@@ -30,12 +37,31 @@ $qry = $conn->query("SELECT * FROM `user_list` where user_id = '{$_GET['id']}'")
 
 <script>
     $(function(){
+        $('.toggle-password').click(function(){
+              var input = $(this).closest('.input-group').find('input');
+              if(input.attr('type') === 'password'){
+                  input.attr('type', 'text');
+                  $(this).text('Hide');
+              }else{
+                  input.attr('type', 'password');
+                  $(this).text('Show');
+              }
+          });
         $('#user-form').submit(function(e){
             e.preventDefault();
             $('.pop_msg').remove()
             var _this = $(this)
             var _el = $('<div>')
                 _el.addClass('pop_msg')
+
+            var username = $('#username').val().trim();
+            if (username.length < 8) {
+                _el.addClass('alert alert-danger');
+                _el.text('Username must be 8 or more characters long.');
+                _this.prepend(_el);
+                _el.show('slow');
+                return; // Prevent form submission if validation fails
+                }
             $('#uni_modal button').attr('disabled',true)
             $('#uni_modal button[type="submit"]').text('submitting form...')
             $.ajax({
